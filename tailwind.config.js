@@ -18,6 +18,11 @@ export default {
             backgroundImage: {
                 'logo': "url('/images/logo.png')",
             },
+
+            colors: {
+                primary: '#E63946', // rouge personnalisé
+                dark: '#1A1A1A',
+            },
         },
     },
 
