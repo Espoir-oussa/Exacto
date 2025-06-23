@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('taches', function (Blueprint $table) {
+            //
+            $table->longText("description")->after("libelle_tache");
+        });
     }
 
     /**
@@ -19,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('taches', function (Blueprint $table) {
+            //
+        });
     }
 };
