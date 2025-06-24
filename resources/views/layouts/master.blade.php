@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">
@@ -14,6 +14,8 @@
   <link href="/css/ruang-admin.min.css" rel="stylesheet">
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
   <base href="/public">
+   @vite('resources/css/app.css')
+   @vite('resources/js/app.js')
 </head>
 
 <body id="page-top">
@@ -30,15 +32,16 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">@yield('page-title', 'Dashboard')</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./master">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
           </div>
 
-          @yield('content')
-
+            <div>
+                @yield('content')
+            </div>
 
 
           <!-- Modal Logout -->
@@ -83,6 +86,7 @@
   <script src="{{asset('js/ruang-admin.min.js')}}"></script>
   <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+
 </body>
 
 </html>

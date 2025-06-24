@@ -35,8 +35,19 @@ Route::get('/dashboard', function () {
 // Groupes de routes sécurisées par rôle
 Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/accueil-admin', [AdminDashboardController::class, 'accueiladmin'])->name('accueiladmin');
+    Route::get('/admin/creer-compte', [AdminDashboardController::class, 'creercompte'])->name('creercompte');
+    Route::get('/admin/consulter-historique', [AdminDashboardController::class, 'consulterhistorique'])->name('consulterhistorique');
+
+
+    // Route::get('/admin/creer-compte', function () {
+    //     return view('admin.creercompte');
+    // })->name('creercompte');
     // Ajouter ici d'autres routes admin
 });
+
+
+
 
 Route::middleware(['auth', 'role:employe'])->group(function () {
     Route::get('/employe/dashboard', [EmployeDashboardController::class, 'index'])->name('employe.dashboard');

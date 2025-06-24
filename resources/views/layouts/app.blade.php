@@ -12,16 +12,16 @@
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white shadow-md">
+    <nav class="bg-[#164f63] shadow-md py-1 px-2  md:px-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                 <a href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-5 w-auto">
+                    <img src="{{ asset('images/Logo IMUXT (Blanc).png') }}" alt="Logo" class="h-5 w-auto">
                 </a>
                 </div>
                 <div class="flex items-center">
-                    <a href="{{ route('login') }}" class="px-4 py-2 bg-[#f40000] text-white rounded-3xl hover:bg-[#000000] transition">Connexion</a>
+                    <a href="{{ route('login') }}" class="px-4 py-2 bg-[#ffffff] text-[#164f63] font-bold rounded-3xl hover:border-[#164f63] hover:border-2 hover:no-underline hover:text-[#164f63] text-decoration-none transition">Connexion</a>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
 
 
     <!-- Pied de page -->
-    <footer class="bg-[#000000] text-white  py-6">
+    <footer class="bg-[#164f63] text-white  py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
