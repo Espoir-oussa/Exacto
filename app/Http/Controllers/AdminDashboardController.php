@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdminDashboardController extends Controller
 {
      public function index()
     {
-        $nbEmployes = User::where('is_admin', false)->count();
-        $pointagesDuJour = Pointage::whereDate('date_pointage', today())->get();
-        $tachesDuJour = Tache::whereDate('date_tache', today())->get();
+        return view('admin.accueiladmin');
+    }
 
-        return view('admin.dashboard', compact('nbEmployes', 'pointagesDuJour', 'tachesDuJour'));
+    public function creerCompte()
+    {
+        return view('admin.creercompte');
+    }
+
+    public function consulterhistorique()
+    {
+        return view('admin.consulterhistorique');
     }
 }

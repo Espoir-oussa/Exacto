@@ -18,7 +18,7 @@ return new class extends Migration
         $table->time('heure_arrivee')->nullable();
         $table->time('heure_depart')->nullable();
         $table->text('justificatif_retard')->nullable();
-        $table->boolean('statut')->default(true); // vrai si validé
+        $table->boolean('statut')->default(false); // vrai si validé
         $table->timestamps();
         });
     }
