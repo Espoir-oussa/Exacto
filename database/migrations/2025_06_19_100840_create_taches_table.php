@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('taches', function (Blueprint $table) {
         $table->id(); // Clé primaire
         $table->foreignId('user_id')->constrained()->onDelete('cascade'); // FK vers users
-        $table->date('date_tache');
         $table->string('libelle_tache');
         $table->timestamps();
         });

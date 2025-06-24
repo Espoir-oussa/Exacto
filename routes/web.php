@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeDashboardController;
 use App\Http\Controllers\TacheController;
 use App\Http\Controllers\PointageController;
 use App\Http\Middleware\CheckRole;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,11 +19,12 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-    if (!auth()->check()) {
+    $auth=Auth::user();
+    if (!$auth) {
         return redirect()->route('login');
     }
 
-    if (auth()->user()->role==="admin") {
+    if ($auth->role==="admin") {
         return redirect()->route('admin.dashboard');
     } else {
         return redirect()->route('employe.dashboard');
@@ -46,11 +48,14 @@ Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
     // Ajouter ici d'autres routes admin
 });
 
+Route::middleware(['auth', CheckRole::class.':employe'])->prefix("employe")->group(function () {
+    Route::get('/dashboard', [EmployeDashboardController::class, 'index'])->name('employe.dashboard');
+    Route::get("/taches_form",[EmployeDashboardController::class,"ShowTaskForm"])->name("taches.index");
+    Route::post("/post_taches",[EmployeDashboardController::class,"HandleTask"])->name("taches.post");
+    Route::get("/list_tasks",[EmployeDashboardController::class,"ShowAllTask"])->name("tasks.lists");
+    Route::get("/pointages_page",[EmployeDashboardController::class,"ShowPointage"])->name("pointages.index");
+    //taches.index
 
-
-
-Route::middleware(['auth', 'role:employe'])->group(function () {
-    Route::get('/employe/dashboard', [EmployeDashboardController::class, 'index'])->name('employe.dashboard');
     // Ajouter ici d'autres routes employé
 });
 
