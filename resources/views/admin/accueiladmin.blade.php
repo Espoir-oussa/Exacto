@@ -9,7 +9,7 @@
 
         <!-- Card 1 : Créer compte -->
         <div class="flex items-center justify-center bg-gray-100">
-            <a href="{{ route('creercompte') }}"
+            <a href="{{ route('admin.register') }}"
                 class="flex flex-col items-center justify-center space-y-4 w-full md:w-[350px] md:h-[400px] p-6 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer hover:no-underline">
                 <!-- Icône Créer compte -->
                 <div>
