@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
         return redirect()->route('login');
     }
 
-    if (auth()->user()->role="admin") {
+    if (auth()->user()->role==="admin") {
         return redirect()->route('admin.dashboard');
     } else {
         return redirect()->route('employe.dashboard');

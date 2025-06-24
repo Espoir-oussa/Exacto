@@ -17,6 +17,7 @@ class AdminDashboardController extends Controller
         return view('admin.creercompte');
     }
 
+
     public function consulterhistorique()
     {
         return view('admin.consulterhistorique');
