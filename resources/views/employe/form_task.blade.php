@@ -23,13 +23,6 @@
                 <form action="{{ route('taches.post') }}" method="POST">
                     @csrf
 
-                    <!-- Libellé -->
-                    <div class="mb-3">
-                        <label for="libelle" class="form-label fw-semibold">Libellé de la tâche</label>
-                        <input type="text" class="form-control form-control-lg" id="libelle" name="libelle" required
-                            placeholder="Entrez le libellé de la tâche">
-                    </div>
-
                     <!-- Description -->
                     <div class="mb-4">
                         <label for="description" class="form-label fw-semibold">Description de la tâche</label>
