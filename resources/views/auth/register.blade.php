@@ -69,7 +69,7 @@
           class="mt-1 w-full px-4 py-2 rounded-lg bg-black bg-opacity-40 border border-gray-600 text-white placeholder-white focus:outline-none focus:ring-2 ">
       </div>
 
-      <!-- Mot de passe -->
+      {{-- <!-- Mot de passe -->
       <div>
         <label for="password" class="block text-sm font-medium text-white">Mot de passe</label>
         <input id="password" type="password" name="password" required
@@ -81,7 +81,7 @@
         <label for="password_confirmation" class="block text-sm font-medium text-white">Confirmer le mot de passe</label>
         <input id="password_confirmation" type="password" name="password_confirmation" required
           class="mt-1 w-full px-4 py-2 rounded-lg bg-black bg-opacity-40 border border-gray-600 text-white placeholder-white focus:outline-none focus:ring-2 ">
-      </div>
+      </div> --}}
 
       <!-- Bouton -->
       <div>

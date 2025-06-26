@@ -3,7 +3,7 @@
     <!-- Logo -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+            <img src="{{ asset('images/Logo IMUXT.png') }}" alt="Logo">
         </div>
     </a>
 
@@ -33,17 +33,10 @@
         <div class="sidebar-heading">Administrateur</div>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminComptes"
-                aria-expanded="false" aria-controls="collapseAdminComptes">
+            <a class="nav-link collapsed" href="#">
                 <i class="far fa-fw fa-window-maximize"></i>
-                <span>Comptes</span>
+                <span>Créer Comptes</span>
             </a>
-            <div id="collapseAdminComptes" class="collapse" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Créer Comptes</h6>
-                    <a class="collapse-item" href="#">Importer listes</a>
-                </div>
-            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminHistorique"
@@ -53,7 +46,6 @@
             </a>
             <div id="collapseAdminHistorique" class="collapse" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Pointages & Tâches</h6>
                     <a class="collapse-item" href="#">Pointages</a>
                     <a class="collapse-item" href="#">Tâches</a>
                 </div>

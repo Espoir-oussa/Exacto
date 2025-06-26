@@ -39,10 +39,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/accueil-admin', [AdminDashboardController::class, 'accueiladmin'])->name('accueiladmin');
-    // Route::get('/admin/creer-compte', [AdminDashboardController::class, 'creerCompte'])->name('creercompte');
     Route::get('/admin/consulter-historique', [AdminDashboardController::class, 'consulterhistorique'])->name('consulterhistorique');
-
-
     Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
     Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
 

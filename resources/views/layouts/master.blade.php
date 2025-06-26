@@ -20,6 +20,12 @@
 
 <body id="page-top">
     <div id="wrapper">
+        @php
+            $user = auth()->user();
+            $isAdmin = $user && $user->role === 'admin';
+            $isEmploye = $user && $user->role === 'employe';
+        @endphp
+
         <!-- Sidebar -->
         @include('partials.sidebar')
         <!-- Sidebar -->
@@ -95,6 +101,18 @@
     <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
     <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+    <script>
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('lg:w-64');
+    sidebar.classList.toggle('lg:w-20');
+    document.querySelectorAll('.sidebar-label').forEach(el => {
+      el.classList.toggle('hidden');
+    });
+  });
+</script>
+
 
 </body>
 
