@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendPasswordToEmployee;
+
 
 class RegisteredUserController extends Controller
 {
@@ -30,21 +34,30 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'first_name' => 'required|string|max:255',
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+    // Génération automatique du mot de passe
+    $generatedPassword = Str::random(10);
+
+
         $user = User::create([
+            'first_name' => $request->first_name,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($generatedPassword),
+            'role' => 'employe',
         ]);
+
+        // Envoi du mot de passe par email
+        Mail::to($user->email)->send(new SendPasswordToEmployee($user, $generatedPassword));
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('admin.register')->with('status', 'Compte employé créé avec succès.');
     }
 }

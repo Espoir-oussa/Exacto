@@ -2,90 +2,117 @@
 <html lang="fr">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link href="images//logo.png" rel="icon">
-  <title>@yield('title', 'Exacto')</title>
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="/css/ruang-admin.min.css" rel="stylesheet">
-  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-  <base href="/public">
-   @vite('resources/css/app.css')
-   @vite('resources/js/app.js')
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="images//logo.png" rel="icon">
+    <title>@yield('title', 'Exacto')</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/ruang-admin.min.css" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <base href="/public">
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
 
 <body id="page-top">
-  <div id="wrapper">
-    <!-- Sidebar -->
-    @include('partials.sidebar')
-    <!-- Sidebar -->
-    <div id="content-wrapper" class="d-flex flex-column">
-      <div id="content">
-        <!-- TopBar -->
-        @include('partials.header')
-        <!-- Topbar -->
+    <div id="wrapper">
+        @php
+            $user = auth()->user();
+            $isAdmin = $user && $user->role === 'admin';
+            $isEmploye = $user && $user->role === 'employe';
+        @endphp
 
-        <!-- Container Fluid-->
-        <div class="container-fluid" id="container-wrapper">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">@yield('page-title', 'Dashboard')</h1>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./master">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
-          </div>
+        <!-- Sidebar -->
+        @include('partials.sidebar')
+        <!-- Sidebar -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- TopBar -->
+                @include('partials.header')
+                <!-- Topbar -->
 
-            <div>
-                @yield('content')
+                <!-- Container Fluid-->
+                <div class="container-fluid" id="container-wrapper">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">@yield('page-title', 'Dashboard')</h1>
+                        <ol class="breadcrumb">
+
+                            @if (auth()->user()->role === 'admin')
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                            @endif
+
+                            @if (auth()->user()->role === 'employe')
+                                <li class="breadcrumb-item"><a href="{{ route('employe.dashboard') }}">Home</a></li>
+                            @endif
+
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        @yield('content')
+                    </div>
+
+
+                    <!-- Modal Logout -->
+                    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to logout?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        data-dismiss="modal">Cancel</button>
+                                    <a href="login.html" class="btn btn-primary">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!---Container Fluid-->
             </div>
-
-
-          <!-- Modal Logout -->
-          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Are you sure you want to logout?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="login.html" class="btn btn-primary">Logout</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+            <!-- Footer -->
+            @include('partials.footer')
+            <!-- Footer -->
         </div>
-        <!---Container Fluid-->
-      </div>
-      <!-- Footer -->
-      @include('partials.footer')
-      <!-- Footer -->
     </div>
-  </div>
 
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-  <script src="{{asset('js/ruang-admin.min.js')}}"></script>
-  <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-  <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
+    <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+    <script>
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('lg:w-64');
+    sidebar.classList.toggle('lg:w-20');
+    document.querySelectorAll('.sidebar-label').forEach(el => {
+      el.classList.toggle('hidden');
+    });
+  });
+</script>
+
 
 </body>
 

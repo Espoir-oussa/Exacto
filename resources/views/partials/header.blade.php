@@ -1,93 +1,74 @@
-<nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
-  <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
-    <i class="fa fa-bars"></i>
+<header class="w-full bg-[#164f63] text-white shadow-md px-4 py-3 flex justify-between items-center">
+  <!-- Bouton burger -->
+  <button id="sidebarToggle" class="text-white text-xl focus:outline-none">
+    <i class="fas fa-bars"></i>
   </button>
 
-  <ul class="navbar-nav ml-auto">
-    <!-- Recherches -->
-    <li class="nav-item dropdown no-arrow">
-      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown">
-        <i class="fas fa-search fa-fw"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
-        <form class="navbar-search">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-1 small" placeholder="Que recherchez-vous ?"
-              aria-label="Recherche">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
+  <div class="flex items-center space-x-4">
+    <!-- Recherche -->
+    <div class="relative group">
+      <button class="focus:outline-none">
+        <i class="fas fa-search"></i>
+      </button>
+      <div class="absolute right-0 mt-2 w-64 bg-white text-black rounded shadow-lg p-4 hidden group-hover:block z-10">
+        <form>
+          <div class="flex">
+            <input type="text" placeholder="Que recherchez-vous ?" class="w-full px-3 py-1 border border-gray-300 rounded-l">
+            <button type="submit" class="bg-blue-600 text-white px-3 rounded-r">
+              <i class="fas fa-search"></i>
+            </button>
           </div>
         </form>
       </div>
-    </li>
+    </div>
 
-    <!-- Notifications admin (pointages & tâches) -->
-    <li class="nav-item dropdown no-arrow mx-1">
-      <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-toggle="dropdown">
-        <i class="fas fa-bell fa-fw"></i>
-        <span class="badge badge-danger badge-counter">3</span> {{-- exemple dynamique possible --}}
-      </a>
-      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
-        <h6 class="dropdown-header">Notifications</h6>
-        <a class="dropdown-item d-flex align-items-center" href="#">
-          <div class="mr-3">
-            <div class="icon-circle bg-primary">
-              <i class="fas fa-user-check text-white"></i>
+    <!-- Notifications -->
+    <div class="relative group">
+      <button class="relative focus:outline-none">
+        <i class="fas fa-bell"></i>
+        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">3</span>
+      </button>
+      <div class="absolute right-0 mt-2 w-80 bg-white text-black rounded shadow-lg hidden group-hover:block z-10">
+        <div class="p-4">
+          <h6 class="font-semibold mb-2">Notifications</h6>
+          <div class="flex items-start space-x-2 mb-2">
+            <div class="bg-blue-600 text-white p-2 rounded-full">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <div>
+              <p class="font-semibold">Nouveau pointage enregistré</p>
+              <p class="text-sm text-gray-500">Aujourd'hui à 10:24</p>
             </div>
           </div>
-          <div>
-            <span class="font-weight-bold">Nouveau pointage enregistré</span>
-            <div class="small text-gray-500">Aujourd'hui à 10:24</div>
-          </div>
-        </a>
-        <a class="dropdown-item d-flex align-items-center" href="#">
-          <div class="mr-3">
-            <div class="icon-circle bg-success">
-              <i class="fas fa-tasks text-white"></i>
+          <div class="flex items-start space-x-2">
+            <div class="bg-green-600 text-white p-2 rounded-full">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <div>
+              <p class="font-semibold">Nouvelle tâche soumise</p>
+              <p class="text-sm text-gray-500">Aujourd'hui à 09:15</p>
             </div>
           </div>
-          <div>
-            <span class="font-weight-bold">Nouvelle tâche soumise</span>
-            <div class="small text-gray-500">Aujourd'hui à 09:15</div>
-          </div>
-        </a>
-        <a class="dropdown-item text-center small text-gray-500" href="#">Voir toutes les notifications</a>
+        </div>
       </div>
-    </li>
-
-    <div class="topbar-divider d-none d-sm-block"></div>
+    </div>
 
     <!-- Utilisateur -->
-    <li class="nav-item dropdown no-arrow">
-      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
-        <img class="img-profile rounded-circle" src="{{ asset('img/boy.png') }}" style="max-width: 60px">
-        <span class="ml-2 d-none d-lg-inline text-white small">
-          {{ Auth::check() ? Auth::user()->name : 'Utilisateur' }}
-        </span>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
-        <a class="dropdown-item" href="#">
-          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-          Mon profil
-        </a>
-        <a class="dropdown-item" href="#">
-          <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-          Paramètres
-        </a>
-        <div class="dropdown-divider"></div>
-
-        <!-- Logout -->
+    <div class="relative group">
+      <button class="flex items-center space-x-2 focus:outline-none">
+        <img src="{{ asset('img/boy.png') }}" class="w-10 h-10 rounded-full" alt="Profil">
+        <span class="hidden lg:inline">{{ Auth::check() ? Auth::user()->name : 'Utilisateur' }}</span>
+      </button>
+      <div class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg hidden group-hover:block z-10">
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-user mr-2"></i>Mon profil</a>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100"><i class="fas fa-cogs mr-2"></i>Paramètres</a>
         <form method="POST" action="{{ route('logout') }}">
           @csrf
-          <button type="submit" class="dropdown-item">
-            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-            Se déconnecter
+          <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">
+            <i class="fas fa-sign-out-alt mr-2"></i>Se déconnecter
           </button>
         </form>
       </div>
-    </li>
-  </ul>
-</nav>
+    </div>
+  </div>
+</header>
