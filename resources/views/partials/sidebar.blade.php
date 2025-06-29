@@ -1,13 +1,26 @@
-<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar" >
-
+<nav id="sidebar" class="fixed top-0 left-0 z-50 h-screen bg-gray-800 text-white transition-all duration-300 transform"
+    :class="{
+        'w-64': appState.sidebarOpen && !isMobile,
+        'w-20': !appState.sidebarOpen && !isMobile,
+        'translate-x-0 w-64': appState.sidebarOpen && isMobile,
+        '-translate-x-full': !appState.sidebarOpen && isMobile
+    }"
+    x-data="{}" x-init="document.addEventListener('sidebar-toggled', (e) => {
+        appState.sidebarOpen = e.detail;
+    })">
     <!-- Logo -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon">
-            <img src="{{ asset('images/Logo IMUXT.png') }}" alt="Logo">
-        </div>
-    </a>
-
-    <hr class="sidebar-divider my-0">
+    <div class="p-4 flex items-center justify-center bg-dark">
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center justify-center">
+            <div :class="{
+                'w-20 h-10': appState.sidebarOpen,
+                'w-10 h-10': !appState.sidebarOpen
+            }" class="transition-all duration-300">
+                <img src="{{ asset('images/Logo IMUXT (Blanc).png') }}"
+                     alt="Logo"
+                     class="w-full h-full object-contain">
+            </div>
+        </a>
+    </div>
 
     <!-- Dashboard -->
     @php
@@ -16,82 +29,107 @@
         $isEmploye = $user && $user->role === 'employe';
     @endphp
 
-    <li
-        class="nav-item {{ request()->routeIs('admin.dashboard') || request()->routeIs('employe.dashboard') ? 'active' : '' }}">
-        <a class="nav-link"
-            href="{{ $isAdmin ? route('admin.dashboard') : ($isEmploye ? route('employe.dashboard') : '#') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+    <div class="p-3 space-y-1 flex-1 overflow-y-auto">
+        <a href="{{ $isAdmin ? route('admin.dashboard') : ($isEmploye ? route('employe.dashboard') : '#') }}"
+            class="flex items-center p-2 rounded-lg hover:bg-gray-700 {{ request()->routeIs('admin.dashboard') || request()->routeIs('employe.dashboard') ? 'bg-gray-700' : '' }}">
+            <i class="fas fa-fw fa-tachometer-alt w-5 mr-3 text-center"></i>
+            <span class="sidebar-label" x-show="appState.sidebarOpen">Tableau de Bord</span>
         </a>
-    </li>
+    </div>
 
-    <hr class="sidebar-divider">
+    <hr class="border-gray-700 mx-3">
 
-
-    {{-- Section ADMIN --}}
+    <!-- Section ADMIN -->
     @if (auth()->user()->role === 'admin')
-        <div class="sidebar-heading">Administrateur</div>
+        <div class="px-4 py-2 text-xs uppercase tracking-wider text-gray-400 sidebar-label"
+            x-show="appState.sidebarOpen">
+            Comptes
+        </div>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="far fa-fw fa-window-maximize"></i>
-                <span>Créer Comptes</span>
+        <div class="p-3 space-y-1">
+            <a href="{{ route('admin.register') }}" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
+                <i class="far fa-fw fa-window-maximize w-5 mr-3 text-center"></i>
+                <span class="sidebar-label" x-show="appState.sidebarOpen">Créer Comptes</span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdminHistorique"
-                aria-expanded="false" aria-controls="collapseAdminHistorique">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Historiques</span>
+            <a href="{{ route('admin.register') }}" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
+                <i class="far fa-fw fa-window-maximize w-5 mr-3 text-center"></i>
+                <span class="sidebar-label" x-show="appState.sidebarOpen">Liste des Employés</span>
             </a>
-            <div id="collapseAdminHistorique" class="collapse" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Pointages</a>
-                    <a class="collapse-item" href="#">Tâches</a>
-                </div>
-            </div>
-        </li>
+        </div>
+
+        <hr class="border-gray-700 mx-3">
+        <div class="px-4 py-2 text-xs uppercase tracking-wider text-gray-400 sidebar-label"
+            x-show="appState.sidebarOpen">
+            Historiques
+        </div>
+        <div class="p-3 space-y-1">
+            <a href="#" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
+                <i class="fas fa-fw fa-table w-5 mr-3 text-center"></i>
+                <span class="sidebar-label" x-show="appState.sidebarOpen">Pointages</span>
+            </a>
+            <a href="#" class="flex items-center p-2 rounded-lg hover:bg-gray-700">
+                <i class="fas fa-fw fa-table w-5 mr-3 text-center"></i>
+                <span class="sidebar-label" x-show="appState.sidebarOpen">Tâches</span>
+            </a>
+        </div>
     @endif
 
-    {{-- Section EMPLOYE --}}
+    <!-- Section EMPLOYE -->
     @if (auth()->user()->role === 'employe')
-        <div class="sidebar-heading">Employés</div>
+        <div class="px-4 py-2 text-xs uppercase tracking-wider text-gray-400 sidebar-label"
+            x-show="appState.sidebarOpen">
+            Employés
+        </div>
 
-        <li class="nav-item {{ request()->routeIs('pointages.index') ? 'active' : '' }}">
-            <a class="nav-link collapsed" href="{{ route('pointages.index') }}" data-toggle="collapse"
-                data-target="#collapseEmployePointages" aria-expanded="false" aria-controls="collapseEmployePointages">
-                <i class="far fa-fw fa-clock"></i>
-                <span>Pointages</span>
-            </a>
-            <div id="collapseEmployePointages" class="collapse" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Arrivée</a>
-                    <a class="collapse-item" href="#">Départ</a>
+        <div class="p-3 space-y-1">
+            <div x-data="{ open: false }" class="rounded-lg hover:bg-gray-700">
+                <button @click="open = !open" class="flex items-center justify-between w-full p-2">
+                    <div class="flex items-center">
+                        <i class="far fa-fw fa-clock w-5 mr-3 text-center"></i>
+                        <span class="sidebar-label" x-show="appState.sidebarOpen">Pointages</span>
+                    </div>
+                    <i x-show="appState.sidebarOpen" class="fas fa-chevron-down text-xs transform transition-transform"
+                        :class="open ? 'rotate-180' : ''"></i>
+                </button>
+                <div x-show="open && appState.sidebarOpen" class="pl-8 py-1 space-y-1">
+                    <a href="#" class="block p-2 text-sm rounded hover:bg-gray-600">Arrivée</a>
+                    <a href="#" class="block p-2 text-sm rounded hover:bg-gray-600">Départ</a>
                 </div>
             </div>
-        </li>
 
-        <li class="nav-item {{ request()->routeIs('taches.index') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('taches.index') }}">
-                <i class="fas fa-fw fa-tasks"></i>
-                <span>Tâches</span>
+            <a href="{{ route('taches.index') }}"
+                class="flex items-center p-2 rounded-lg hover:bg-gray-700 {{ request()->routeIs('taches.index') ? 'bg-gray-700' : '' }}">
+                <i class="fas fa-fw fa-tasks w-5 mr-3 text-center"></i>
+                <span class="sidebar-label" x-show="appState.sidebarOpen">Tâches</span>
             </a>
-        </li>
 
-        <li class="nav-item ">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployeHistorique"
-                aria-expanded="false" aria-controls="collapseEmployeHistorique">
-                <i class="fas fa-fw fa-history"></i>
-                <span>Historiques</span>
-            </a>
-            <div id="collapseEmployeHistorique" class="collapse" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Pointages & Tâches</h6>
-                    <a class="collapse-item" href="#">Pointages</a>
-                    <a class="collapse-item {{ request()->routeIs('tasks.lists') ? 'active' : '' }}" href="{{route("tasks.lists")}}">Tâches</a>
+            <div x-data="{ open: false }" class="rounded-lg hover:bg-gray-700">
+                <button @click="open = !open" class="flex items-center justify-between w-full p-2">
+                    <div class="flex items-center">
+                        <i class="fas fa-fw fa-history w-5 mr-3 text-center"></i>
+                        <span class="sidebar-label" x-show="appState.sidebarOpen">Historiques</span>
+                    </div>
+                    <i x-show="appState.sidebarOpen" class="fas fa-chevron-down text-xs transform transition-transform"
+                        :class="open ? 'rotate-180' : ''"></i>
+                </button>
+                <div x-show="open && appState.sidebarOpen" class="pl-8 py-1 space-y-1">
+                    <div class="text-xs text-gray-400 px-2 py-1 sidebar-label">Pointages & Tâches</div>
+                    <a href="#" class="block p-2 text-sm rounded hover:bg-gray-600">Pointages</a>
+                    <a href="{{ route('tasks.lists') }}"
+                        class="block p-2 text-sm rounded hover:bg-gray-600 {{ request()->routeIs('tasks.lists') ? 'bg-gray-600' : '' }}">Tâches</a>
                 </div>
             </div>
-        </li>
+        </div>
     @endif
 
-</ul>
+    <!-- Bouton de réduction -->
+    <div class="p-4 border-t border-gray-700">
+        <button @click="appState.toggleSidebar()"
+            class="w-full flex items-center justify-center text-gray-400 hover:text-white">
+            <i class="fas fa-chevron-left transition-transform" :class="appState.sidebarOpen ? '' : 'rotate-180'"></i>
+            <span class="ml-2 sidebar-label" x-show="appState.sidebarOpen">
+                <span x-text="isMobile ? 'Fermer' : 'Réduire'"></span>
+            </span>
+        </button>
+    </div>
+</nav>
