@@ -85,7 +85,7 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
                     </nav>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-4 md:p-6">
+                <div class="p-4 md:p-6">
                     @yield('content')
                 </div>
             </div>
@@ -93,11 +93,11 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
     </div>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-4 h-22 flex-shrink-0">
+    <footer class="bg-dark text-white py-4 h-22 flex-shrink-0">
         <div class="max-w-7xl mx-auto px-4">
 
             <div class="mb-3 md:mb-0">
-                <p class="text-center py-5">&copy; <span id="current-year"></span> eXacto. Tous droits réservés.</p>
+                <p class="text-center py-5">&copy; <span id="current-year"></span> IMUXT. Tous droits réservés.</p>
             </div>
         </div>
     </footer>

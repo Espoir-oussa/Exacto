@@ -21,7 +21,7 @@ export default {
 
             backgroundImage: {
                 'logo': "url('/images/Logo IMUXT.png')",
-                'logo': "url('/images/Logo IMUXT (Blanc).png')",
+                'logo ligth': "url('/images/Logo IMUXT (Blanc).png')",
             },
 
             colors: {

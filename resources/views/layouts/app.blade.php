@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exacto - Gestion des employés</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/ruang-admin.min.css" rel="stylesheet">
+    <title>IMUXT - Plateforme de Gestion des Employés et des Tâches</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <!-- Navigation -->
