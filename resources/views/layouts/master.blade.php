@@ -1,118 +1,111 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="h-full">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="images//logo.png" rel="icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Exacto')</title>
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/ruang-admin.min.css" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <base href="/public">
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        // Gestion du mode mobile
+        function initMobileMode() {
+            return {
+                isMobile: window.innerWidth < 768,
+                checkScreenSize() {
+                    this.isMobile = window.innerWidth < 768;
+                    if (this.isMobile) {
+                        this.appState.sidebarOpen = false;
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body id="page-top">
-    <div id="wrapper">
-        @php
-            $user = auth()->user();
-            $isAdmin = $user && $user->role === 'admin';
-            $isEmploye = $user && $user->role === 'employe';
-        @endphp
+<body x-data="{
+    appState: {
+        sidebarOpen: localStorage.getItem('sidebarOpen') !== 'false',
+        toggleSidebar() {
+            this.sidebarOpen = !this.sidebarOpen;
+            localStorage.setItem('sidebarOpen', this.sidebarOpen);
+            document.dispatchEvent(new CustomEvent('sidebar-toggled', {
+                detail: this.sidebarOpen
+            }));
+        }
+    },
+    ...initMobileMode()
+}" x-init="// Initialisation
+$watch('isMobile', () => checkScreenSize());
+window.addEventListener('resize', () => checkScreenSize());
+checkScreenSize();
 
-        <!-- Sidebar -->
-        @include('partials.sidebar')
-        <!-- Sidebar -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <!-- TopBar -->
-                @include('partials.header')
-                <!-- Topbar -->
-
-                <!-- Container Fluid-->
-                <div class="container-fluid" id="container-wrapper">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">@yield('page-title', 'Dashboard')</h1>
-                        <ol class="breadcrumb">
-
-                            @if (auth()->user()->role === 'admin')
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                            @endif
-
-                            @if (auth()->user()->role === 'employe')
-                                <li class="breadcrumb-item"><a href="{{ route('employe.dashboard') }}">Home</a></li>
-                            @endif
-
-                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                        </ol>
-                    </div>
-
-                    <div>
-                        @yield('content')
-                    </div>
-
-
-                    <!-- Modal Logout -->
-                    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Are you sure you want to logout?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-primary"
-                                        data-dismiss="modal">Cancel</button>
-                                    <a href="login.html" class="btn btn-primary">Logout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!---Container Fluid-->
-            </div>
-            <!-- Footer -->
-            @include('partials.footer')
-            <!-- Footer -->
-        </div>
+// Émettre l'état initial
+document.dispatchEvent(new CustomEvent('sidebar-toggled', {
+    detail: appState.sidebarOpen
+}));">
+    <!-- Overlay mobile -->
+    <div x-show="appState.sidebarOpen && isMobile" @click="appState.toggleSidebar()"
+        class="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden" style="display: none;">
     </div>
 
-    <!-- Scroll to top -->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+    <!-- Sidebar -->
+    @include('partials.sidebar')
 
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('js/ruang-admin.min.js') }}"></script>
-    <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+    <!-- Contenu principal -->
+    <div class="flex-1 flex flex-col min-h-0" :style="!isMobile ? {
+            marginLeft: appState.sidebarOpen ? '16rem' : '5rem',
+            transition: 'margin-left 0.3s'
+        } : {}">
+
+        <!-- Header -->
+        @include('partials.header')
+
+        <!-- Contenu -->
+        <main class="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6">
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
+                        @yield('page-title', 'Dashboard')
+                    </h1>
+                    <nav class="flex text-sm">
+                        @if (auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
+                        @else
+                            <a href="{{ route('employe.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
+                        @endif
+                        <span class="mx-2 text-gray-500">/</span>
+                        <span class="text-gray-600">Dashboard</span>
+                    </nav>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-4 md:p-6">
+                    @yield('content')
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-4 h-22 flex-shrink-0">
+        <div class="max-w-7xl mx-auto px-4">
+
+            <div class="mb-3 md:mb-0">
+                <p class="text-center py-5">&copy; <span id="current-year"></span> eXacto. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-  const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebarToggle');
-  sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('lg:w-64');
-    sidebar.classList.toggle('lg:w-20');
-    document.querySelectorAll('.sidebar-label').forEach(el => {
-      el.classList.toggle('hidden');
-    });
-  });
-</script>
-
+        // Mettre à jour l'année dans le footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 
 </body>
 

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\EmployeDashboardController;
 use App\Http\Controllers\TacheController;
-use App\Http\Controllers\PointageController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,61 +13,52 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route dashboard générique actuelle (peut être remplacée ou modifiée)
-// Route::get('/dashboard', function () {
-//     return view('master');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
+// Route dashboard avec redirection basée sur le rôle
 Route::get('/dashboard', function () {
-    $auth=Auth::user();
+    $auth = Auth::user();
     if (!$auth) {
         return redirect()->route('login');
     }
 
-    if ($auth->role==="admin") {
-        return redirect()->route('admin.dashboard');
-    } else {
-        return redirect()->route('employe.dashboard');
-    }
-})  ->name('dashboard')
-    ->middleware(['auth', 'verified']);
-;
+    return $auth->role === "admin"
+        ? redirect()->route('admin.dashboard')
+        : redirect()->route('employe.dashboard');
+})->name('dashboard')->middleware(['auth', 'verified']);
 
-
-// Groupes de routes sécurisées par rôle
+// Routes Admin
 Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/accueil-admin', [AdminDashboardController::class, 'accueiladmin'])->name('accueiladmin');
-    Route::get('/admin/consulter-historique', [AdminDashboardController::class, 'consulterhistorique'])->name('consulterhistorique');
-    Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
-    Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/accueil-admin', [AdminDashboardController::class, 'accueiladmin'])->name('accueiladmin');
+        Route::get('/consulter-historique', [AdminDashboardController::class, 'consulterhistorique'])->name('consulterhistorique');
+        Route::get('/register', [RegisteredUserController::class, 'create'])->name('admin.register');
+        Route::post('/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
 
-
-
-    // Route::get('/admin/creer-compte', function () {
-    //     return view('admin.creercompte');
-    // })->name('creercompte');
-    // Ajouter ici d'autres routes admin
+        // Nouvelle route pour la liste des employés
+        Route::get('/liste-employes', [AdminDashboardController::class, 'listeEmployes'])->name('admin.liste-employes');
+    });
 });
 
+// Routes Employé
 Route::middleware(['auth', CheckRole::class.':employe'])->prefix("employe")->group(function () {
     Route::get('/dashboard', [EmployeDashboardController::class, 'index'])->name('employe.dashboard');
-    Route::get("/taches_form",[EmployeDashboardController::class,"ShowTaskForm"])->name("taches.index");
-    Route::post("/post_taches",[EmployeDashboardController::class,"HandleTask"])->name("taches.post");
-    Route::get("/list_tasks",[EmployeDashboardController::class,"ShowAllTask"])->name("tasks.lists");
-    Route::get("/pointages_page",[EmployeDashboardController::class,"ShowPointage"])->name("pointages.index");
-    //taches.index
+    Route::get("/taches_form", [EmployeDashboardController::class, "ShowTaskForm"])->name("taches.index");
+    Route::post("/post_taches", [EmployeDashboardController::class, "HandleTask"])->name("taches.post");
+    Route::get("/list_tasks", [EmployeDashboardController::class, "ShowAllTask"])->name("tasks.lists");
+    Route::get("/pointages_page", [EmployeDashboardController::class, "ShowPointage"])->name("pointages.index");
 
-    // Ajouter ici d'autres routes employé
+    // Nouvelle route pour la suppression des tâches
+    Route::delete('/taches/{tache}', [EmployeDashboardController::class, 'destroyTask'])->name('taches.delete');
 });
 
-// Routes pour le profil utilisateur
+// Routes Profil
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Logout
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');

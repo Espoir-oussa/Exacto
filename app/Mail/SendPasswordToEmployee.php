@@ -23,9 +23,9 @@ class SendPasswordToEmployee extends Mailable
         $this->password = $password;
     }
 
-    public function build()
+    public function build(): SendPasswordToEmployee
     {
-        return $this->subject('Votre compte a été créé')
-            ->view('emails.send-password');
+        return $this->subject(subject: 'Votre compte a été créé')
+            ->view(view: 'emails.send-password');
     }
 }
