@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" class="h-full">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +28,7 @@
         }
     </script>
 </head>
+
 <body x-data="{
     appState: {
         sidebarOpen: localStorage.getItem('sidebarOpen') !== 'false',
@@ -39,33 +41,28 @@
         }
     },
     ...initMobileMode()
-}" x-init="
-    // Initialisation
-    $watch('isMobile', () => checkScreenSize());
-    window.addEventListener('resize', () => checkScreenSize());
-    checkScreenSize();
+}" x-init="// Initialisation
+$watch('isMobile', () => checkScreenSize());
+window.addEventListener('resize', () => checkScreenSize());
+checkScreenSize();
 
-    // Émettre l'état initial
-    document.dispatchEvent(new CustomEvent('sidebar-toggled', {
-        detail: appState.sidebarOpen
-    }));
-">
+// Émettre l'état initial
+document.dispatchEvent(new CustomEvent('sidebar-toggled', {
+    detail: appState.sidebarOpen
+}));">
     <!-- Overlay mobile -->
-    <div x-show="appState.sidebarOpen && isMobile"
-         @click="appState.toggleSidebar()"
-         class="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
-         style="display: none;">
+    <div x-show="appState.sidebarOpen && isMobile" @click="appState.toggleSidebar()"
+        class="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden" style="display: none;">
     </div>
 
     <!-- Sidebar -->
     @include('partials.sidebar')
 
     <!-- Contenu principal -->
-    <div class="flex-1 flex flex-col min-h-0"
-         :style="!isMobile ? {
-             marginLeft: appState.sidebarOpen ? '16rem' : '5rem',
-             transition: 'margin-left 0.3s'
-         } : {}">
+    <div class="flex-1 flex flex-col min-h-0" :style="!isMobile ? {
+            marginLeft: appState.sidebarOpen ? '16rem' : '5rem',
+            transition: 'margin-left 0.3s'
+        } : {}">
 
         <!-- Header -->
         @include('partials.header')
@@ -96,10 +93,20 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t py-4">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm md:text-base">
-            © {{ date('Y') }} Exacto. Tous droits réservés.
+    <footer class="bg-black text-white py-4 h-22 flex-shrink-0">
+        <div class="max-w-7xl mx-auto px-4">
+
+            <div class="mb-3 md:mb-0">
+                <p class="text-center py-5">&copy; <span id="current-year"></span> eXacto. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Mettre à jour l'année dans le footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
 </body>
+
 </html>
