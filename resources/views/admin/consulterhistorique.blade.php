@@ -4,6 +4,12 @@
 
 @section('page-title', 'Comptes Créés')
 
+<form method="GET" action="{{ route('admin.comptes-crees') }}" class="mb-6">
+    <input type="text" name="search" value="{{ request('search') }}"
+           placeholder="Rechercher un employé par nom, prénom ou email..."
+           class="px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/3">
+</form>
+
 @section('content')
 
 @if(session('success'))

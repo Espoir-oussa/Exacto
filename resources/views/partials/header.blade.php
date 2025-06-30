@@ -14,12 +14,14 @@
                 <i class="fas fa-search text-lg"></i>
             </button>
 
-            <div x-show="searchOpen" x-transition class="absolute right-0 mt-2 w-64 bg-white text-black rounded-md shadow-lg p-4 z-50">
+            <div x-show="searchOpen" x-transition
+                class="absolute right-0 mt-2 w-64 bg-white text-black rounded-md shadow-lg p-4 z-50">
                 <form>
                     <div class="flex">
                         <input type="text" placeholder="Que recherchez-vous ?"
                             class="w-full px-3 py-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 rounded-r-md transition-colors">
+                        <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 rounded-r-md transition-colors">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -33,7 +35,8 @@
                 <i class="fas fa-bell text-lg"></i>
                 <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">3</span>
             </button>
-            <div x-show="open" x-transition class="absolute right-0 mt-2 w-80 bg-white text-black rounded-md shadow-lg z-50">
+            <div x-show="open" x-transition
+                class="absolute right-0 mt-2 w-80 bg-white text-black rounded-md shadow-lg z-50">
                 <div class="p-4">
                     <h6 class="font-semibold mb-3 text-gray-800">Notifications</h6>
                     <div class="space-y-3">
@@ -63,11 +66,14 @@
         <!-- Utilisateur -->
         <div class="relative" x-data="{ open: false }" @click.outside="open = false">
             <button @click="open = !open" class="flex items-center space-x-2">
-                <img src="{{ asset('img/boy.png') }}" class="w-8 h-8 md:w-10 md:h-10 rounded-full" alt="Profil">
+                <img src="{{ Auth::user()->profile_photo ? asset('storage/' . Auth::user()->profile_photo) : asset('img/boy.png') }}"
+                    class="w-8 h-8 md:w-10 md:h-10 rounded-full" alt="Profil">
+
                 <span class="hidden lg:inline">{{ Auth::check() ? Auth::user()->name : 'Utilisateur' }}</span>
             </button>
-            <div x-show="open" x-transition class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
-                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">
+            <div x-show="open" x-transition
+                class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
+                <a href="{{ route('profile.edit') }}" class="flex items-center px-4 py-2 hover:bg-gray-100">
                     <i class="fas fa-user mr-2 text-sm"></i>Mon profil
                 </a>
                 <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100">

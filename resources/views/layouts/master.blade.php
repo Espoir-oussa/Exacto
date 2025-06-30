@@ -68,10 +68,10 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
 
         <!-- Contenu -->
         <main class="flex-1 overflow-y-auto bg-gray-50">
-            <div class="max-w-7xl mx-auto px-8">
+            <div class="max-w-7xl mx-auto ">
 
                 <!-- HEADER STICKY -->
-                <div class="sticky top-0 z-30 bg-gray-50 pt-4 pb-4 shadow-sm">
+                <div class="sticky top-0 z-30 bg-gray-50 pt-4 pb-4 shadow-sm px-8">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-center px-4">
                         <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
                             @yield('page-title', 'Dashboard')
@@ -91,7 +91,7 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
                 </div>
 
                 <!-- CONTENU DÉCALÉ EN DESSOUS DU HEADER FIXE -->
-                <div class="px-4 pt-6">
+                <div class="px-8 pt-6">
                     @yield('content')
                 </div>
 
