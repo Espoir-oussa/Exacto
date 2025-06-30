@@ -36,12 +36,11 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
         ]);
 
-    // Génération automatique du mot de passe
-    $generatedPassword = Str::random(10);
-
+        // Génération automatique du mot de passe
+        $generatedPassword = Str::random(10);
 
         $user = User::create([
             'first_name' => $request->first_name,
@@ -49,14 +48,13 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($generatedPassword),
             'role' => 'employe',
+            'created_by' => Auth::id(), // 👈 admin actuellement connecté
         ]);
 
         // Envoi du mot de passe par email
         Mail::to($user->email)->send(new SendPasswordToEmployee($user, $generatedPassword));
 
         event(new Registered($user));
-
-        // Auth::login($user);
 
         return redirect()->route('admin.register')->with('status', 'Compte employé créé avec succès.');
     }

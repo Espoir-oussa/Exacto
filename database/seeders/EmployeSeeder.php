@@ -16,6 +16,7 @@ class EmployeSeeder extends Seeder
     {
         //
          DB::table('users')->updateOrinsert([
+            'first_name' => 'Xandro',
             'name' => 'XandroTheDev',
             'email' => 'cocouvialexandro74@gmail.com',
             'password' => Hash::make('xandro'), // modifie le mot de passe !

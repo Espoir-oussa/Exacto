@@ -31,21 +31,22 @@ class AuthenticatedSessionController extends Controller
     //     return redirect()->intended(route('dashboard', absolute: false));
     // }
 
-   public function store(LoginRequest $request): RedirectResponse
-{
-    $request->authenticate();
-    $request->session()->regenerate();
+    public function store(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+        $request->session()->regenerate();
 
-    $user = $request->user();
+        $user = $request->user();
 
-    // Redirection directe selon le rôle
-    // if ($user->role === 'admin') {
-    //     return redirect()->route('admin.dashboard');
-    // } else {
-    //     return redirect()->route('employe.dashboard');
-    // }
-    return redirect()->intended(route('dashboard', absolute: false));
-}
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'employe') {
+            return redirect()->route('employe.dashboard');
+        } else {
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Rôle utilisateur non reconnu']);
+        }
+    }
 
 
     /**

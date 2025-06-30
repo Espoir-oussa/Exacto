@@ -5,7 +5,7 @@
 @section('page-title', 'Créer un compte') --}}
 
 @section('content')
-    <div class="flex justify-center items-center flex-col md:flex-row md:space-x-32 space-y-4 md:space-y-0 p-6 ">
+    {{-- <div class="flex justify-center items-center flex-col md:flex-row md:space-x-32 space-y-4 md:space-y-0 p-6 ">
 
         <!-- Card 1 : Créer compte -->
         <div class="flex items-center justify-center bg-gray-100">
@@ -45,5 +45,5 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div> --}}
 @endsection

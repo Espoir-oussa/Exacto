@@ -16,6 +16,7 @@ class adminseeder extends Seeder
     public function run(): void
     {
         DB::table('users')->updateOrinsert([
+            'first_name' => 'Admin',
             'name' => 'Administrateur',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'), // modifie le mot de passe !

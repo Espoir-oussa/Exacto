@@ -4,15 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Exacto')</title>
-
+    <title>@yield('title', 'IMUXT')</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         // Gestion du mode mobile
         function initMobileMode() {
@@ -61,46 +60,51 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
     <!-- Contenu principal -->
     <div class="flex-1 flex flex-col min-h-0" :style="!isMobile ? {
             marginLeft: appState.sidebarOpen ? '16rem' : '5rem',
-            transition: 'margin-left 0.3s'
+            transition: 'margin-left 0.1s'
         } : {}">
 
         <!-- Header -->
         @include('partials.header')
 
         <!-- Contenu -->
-        <main class="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6">
-                    <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
-                        @yield('page-title', 'Dashboard')
-                    </h1>
-                    <nav class="flex text-sm">
-                        @if (auth()->user()->role === 'admin')
-                            <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
-                        @else
-                            <a href="{{ route('employe.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
-                        @endif
-                        <span class="mx-2 text-gray-500">/</span>
-                        <span class="text-gray-600">Dashboard</span>
-                    </nav>
-                </div>
+        <main class="flex-1 overflow-y-auto bg-gray-50">
+    <div class="max-w-7xl mx-auto">
 
-                <div class="p-4 md:p-6">
-                    @yield('content')
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 h-22 flex-shrink-0">
-        <div class="max-w-7xl mx-auto px-4">
-
-            <div class="mb-3 md:mb-0">
-                <p class="text-center py-5">&copy; <span id="current-year"></span> IMUXT. Tous droits réservés.</p>
+        <!-- HEADER STICKY -->
+        <div class="sticky top-0 z-30 bg-gray-50 pt-4 pb-4 shadow-sm">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center px-4">
+                <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
+                    @yield('page-title', 'Dashboard')
+                </h1>
+                <nav class="flex text-sm">
+                    @if (auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
+                    @else
+                        <a href="{{ route('employe.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
+                    @endif
+                    <span class="mx-2 text-gray-500">/</span>
+                    <span class="text-gray-600">Dashboard</span>
+                </nav>
             </div>
         </div>
-    </footer>
+
+        <!-- CONTENU DÉCALÉ EN DESSOUS DU HEADER FIXE -->
+        <div class="px-4 pt-6">
+            @yield('content')
+        </div>
+
+    </div>
+</main>
+
+
+
+        <!-- Footer -->
+        {{-- <footer class="bg-[#164f63] text-white py-4 h-22 flex-shrink-0">
+            <div class="max-w-7xl mx-auto px-4">
+                <p class="text-center py-2">&copy; <span id="current-year"></span> IMUXT. Tous droits réservés.</p>
+            </div>
+        </footer> --}}
+    </div>
 
     <script>
         // Mettre à jour l'année dans le footer
