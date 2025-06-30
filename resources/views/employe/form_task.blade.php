@@ -5,7 +5,7 @@
     @php
         use Carbon\Carbon;
         $now = Carbon::now();
-        $debut = Carbon::createFromTime(16, 30, 0); // 16h30
+        $debut = Carbon::createFromTime(12, 32, 0); // 16h30
         $fin = Carbon::createFromTime(20, 0, 0);    // 20h00
     @endphp
 

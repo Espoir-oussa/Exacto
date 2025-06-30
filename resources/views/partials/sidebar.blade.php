@@ -52,23 +52,6 @@
                 <span class="sidebar-label" x-show="appState.sidebarOpen">Liste des Employés</span>
             </a>
         </div>
-
-        <div x-data="{ open: false }" class="rounded-lg hover:bg-gray-700 p-3 mx-3">
-            <button @click="open = !open" class="flex items-center justify-between w-full">
-                <div class="flex items-center">
-                    <i class="fas fa-fw fa-history w-5 mr-3 text-center"></i>
-                    <span class="sidebar-label" x-show="appState.sidebarOpen">Historiques</span>
-                </div>
-                <i x-show="appState.sidebarOpen" class="fas fa-chevron-down text-xs transform transition-transform"
-                    :class="open ? 'rotate-180' : ''"></i>
-            </button>
-            <div x-show="open && appState.sidebarOpen" class="pl-5 py-1 space-y-1">
-                <div class="text-xs text-gray-400 px-2 py-1 sidebar-label">Pointages & Tâches</div>
-                <a href="{{ route('consulterhistorique') }}" class="block p-2 text-sm rounded hover:bg-gray-600">Pointages</a>
-                <a href="{{ route('consulterhistorique') }}"
-                    class="block p-2 text-sm rounded hover:bg-gray-600 {{ request()->routeIs('tasks.lists') ? 'bg-gray-600' : '' }}">Tâches</a>
-            </div>
-        </div>
     @endif
 
     <!-- Section EMPLOYE -->

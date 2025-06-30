@@ -68,33 +68,35 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
 
         <!-- Contenu -->
         <main class="flex-1 overflow-y-auto bg-gray-50">
-    <div class="max-w-7xl mx-auto">
+            <div class="max-w-7xl mx-auto px-8">
 
-        <!-- HEADER STICKY -->
-        <div class="sticky top-0 z-30 bg-gray-50 pt-4 pb-4 shadow-sm">
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center px-4">
-                <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
-                    @yield('page-title', 'Dashboard')
-                </h1>
-                <nav class="flex text-sm">
-                    @if (auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
-                    @else
-                        <a href="{{ route('employe.dashboard') }}" class="text-blue-600 hover:text-blue-800">Home</a>
-                    @endif
-                    <span class="mx-2 text-gray-500">/</span>
-                    <span class="text-gray-600">Dashboard</span>
-                </nav>
+                <!-- HEADER STICKY -->
+                <div class="sticky top-0 z-30 bg-gray-50 pt-4 pb-4 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center px-4">
+                        <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
+                            @yield('page-title', 'Dashboard')
+                        </h1>
+                        <nav class="flex text-sm">
+                            @if (auth()->user()->role === 'admin')
+                                <a href="{{ route('admin.dashboard') }}"
+                                    class="text-dark hover:text-dark hover:font-black">Home</a>
+                            @else
+                                <a href="{{ route('employe.dashboard') }}"
+                                    class="text-dark hover:text-dark hover:font-black">Home</a>
+                            @endif
+                            <span class="mx-2 text-gray-500">/</span>
+                            <span class="text-gray-600">Dashboard</span>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- CONTENU DÉCALÉ EN DESSOUS DU HEADER FIXE -->
+                <div class="px-4 pt-6">
+                    @yield('content')
+                </div>
+
             </div>
-        </div>
-
-        <!-- CONTENU DÉCALÉ EN DESSOUS DU HEADER FIXE -->
-        <div class="px-4 pt-6">
-            @yield('content')
-        </div>
-
-    </div>
-</main>
+        </main>
 
 
 
