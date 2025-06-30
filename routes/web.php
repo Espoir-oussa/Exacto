@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
@@ -27,11 +28,13 @@ Route::get('/dashboard', function () {
 })->name('dashboard')->middleware(['auth', 'verified']);
 
 // Routes Admin
-Route::middleware(['auth', 'active', CheckRole::class.':admin'])->group(function () {
+Route::middleware(['auth', 'active', CheckRole::class . ':admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/accueil-admin', [AdminDashboardController::class, 'accueiladmin'])->name('accueiladmin');
-        Route::get('/consulter-historique', [AdminDashboardController::class, 'consulterhistorique'])->name(name: 'consulterhistorique');
+        Route::get('/consulter-historique', [AdminDashboardController::class, 'consulterhistorique'])->name('consulterhistorique');
+
+
         Route::get('/register', [RegisteredUserController::class, 'create'])->name('admin.register');
         Route::post('/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
 
@@ -52,7 +55,7 @@ Route::middleware(['auth', 'active', CheckRole::class.':admin'])->group(function
 });
 
 // Routes Employé
-Route::middleware(['auth', 'active', CheckRole::class.':employe'])->prefix("employe")->group(function () {
+Route::middleware(['auth', 'active', CheckRole::class . ':employe'])->prefix("employe")->group(function () {
     Route::get('/dashboard', [EmployeDashboardController::class, 'index'])->name('employe.dashboard');
     Route::get("/taches_form", [EmployeDashboardController::class, "ShowTaskForm"])->name("taches.index");
     Route::post("/post_taches", [EmployeDashboardController::class, "HandleTask"])->name("taches.post");
@@ -75,4 +78,4 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

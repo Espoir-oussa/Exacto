@@ -13,16 +13,26 @@ class AdminDashboardController extends Controller
         return view('admin.accueiladmin');
     }
 
-    public function creerCompte()
-    {
-        return view('admin.creercompte');
-    }
 
-    public function consulterhistorique()
+    public function consulterhistorique(Request $request)
     {
-        $comptesCrees = User::where('created_by', Auth::id())->get();
+        $query = User::where('created_by', Auth::id());
+
+        // Si une recherche est saisie, on filtre
+        if ($request->has('search') && $request->search !== '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('first_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $comptesCrees = $query->get();
+
         return view('admin.consulterhistorique', compact('comptesCrees'));
     }
+
 
     // Ajouter : activer/désactiver compte
     public function toggleStatus(User $user)
@@ -53,14 +63,5 @@ class AdminDashboardController extends Controller
         $pointages = collect();
 
         return view('admin.employe_historique', compact('user', 'taches', 'pointages'));
-    }
-
-    public function voirDetailsUser($id)
-    {
-        $user = User::findOrFail($id);
-        $taches = $user->taches;       // Toutes ses tâches
-        $pointages = $user->pointages; // Tous ses pointages
-
-        return view('admin.details_user', compact('user', 'taches', 'pointages'));
     }
 }

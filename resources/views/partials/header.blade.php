@@ -10,9 +10,6 @@
     <div class="flex items-center space-x-4 md:space-x-6">
         <!-- Barre de recherche -->
         <div class="relative" x-data="{ searchOpen: false }" @click.outside="searchOpen = false">
-            <button @click="searchOpen = !searchOpen" class="hover:text-blue-200 transition-colors">
-                <i class="fas fa-search text-lg"></i>
-            </button>
 
             <div x-show="searchOpen" x-transition
                 class="absolute right-0 mt-2 w-64 bg-white text-black rounded-md shadow-lg p-4 z-50">
