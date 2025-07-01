@@ -50,7 +50,7 @@ public function update(ProfileUpdateRequest $request): RedirectResponse
 
     // Mettre à jour le mot de passe si présent
     if ($request->filled('password')) {
-        $user->password = Hash::make($request->input('password'));
+        $user->password = $request->input('password');
     }
 
     $user->save();
