@@ -10,7 +10,7 @@
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-[#164f63] shadow-md py-1 px-2  md:px-4">
+    <nav class="bg-[#164f63] shadow-md py-1 px-2  md:px-4 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
