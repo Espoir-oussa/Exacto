@@ -25,18 +25,18 @@
   }
 </style>
 
-<div class="min-h-screen flex items-center justify-center bg-white-500 px-4">
+<div class="min-h-screen flex items-center justify-center bg-white-500">
   <div class="glass w-full max-w-md p-8 rounded-2xl shadow-2xl text-white animate-fade-in">
 
     <!-- Logo -->
     <div class="flex justify-center mb-6">
       <a href="/">
-        <img src="{{ asset('images/Logo IMUXT (Blanc).png') }}" alt="Logo IMUXT" class="h-10 w-auto">
+        <img src="{{ asset('images/Logo IMUXT (Blanc).png') }}" alt="Logo IMUXT" class="h-8 w-auto">
       </a>
     </div>
 
     <!-- Titre -->
-    <h2 class="text-3xl font-bold text-center mb-6 tracking-wide text-white">Créer un compte employé</h2>
+    <h2 class="text-xl font-bold text-center mb-6 tracking-wide text-white">Créer un compte employé</h2>
 
     @if (session('status'))
       <div class="mb-4 text-sm text-green-400">

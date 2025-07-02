@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMUXT - Plateforme de Gestion des Employés et des Tâches</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" href="{{ asset('images/Logo IMUXT.png') }}" type="image/png" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
@@ -34,14 +35,13 @@
     <!-- Pied de page -->
     <footer class="bg-[#164f63] text-white  py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <p>&copy; {{ date('Y') }} eXacto. Tous droits réservés.</p>
+            <div class="md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 text-center ">
+                    <p>&copy; {{ date('Y') }} IMUXT Sarl. Tous droits reservés.</p>
                 </div>
-                <div class="text-center md:text-right">
-                    <p>Développé par <span class="font-semibold">eXacto</span></p>
-                    <p>Contact : eXacto@gmail.com</p>
-                </div>
+                {{-- <div class="text-center md:text-right">
+                    <p>Développé par <span class="font-semibold">OUSSA Chadrac</span></p>
+                </div> --}}
             </div>
         </div>
     </footer>
