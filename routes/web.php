@@ -61,6 +61,8 @@ Route::middleware(['auth', 'active', CheckRole::class . ':employe'])->prefix("em
     Route::post("/post_taches", [EmployeDashboardController::class, "HandleTask"])->name("taches.post");
     Route::get("/list_tasks", [EmployeDashboardController::class, "ShowAllTask"])->name("tasks.lists");
     Route::get("/pointages_page", [EmployeDashboardController::class, "ShowPointage"])->name("pointages.index");
+    Route::post("/pointage_handle",[EmployeDashboardController::class,"HandlePointage"])->name('pointage.store');
+    Route::get('/pointage_list',[EmployeDashboardController::class,"ShowPointages"])->name('pointages.lists');
 
     // Nouvelle route pour la suppression des tâches par employé
     Route::delete('/taches/{tache}', [EmployeDashboardController::class, 'destroyTask'])->name('taches.delete');

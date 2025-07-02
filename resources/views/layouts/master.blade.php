@@ -8,6 +8,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -58,7 +61,8 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
     @include('partials.sidebar')
 
     <!-- Contenu principal -->
-    <div class="flex-1 flex flex-col min-h-0" :style="!isMobile ? {
+    <div class="flex-1 flex flex-col min-h-0"
+        :style="!isMobile ? {
             marginLeft: appState.sidebarOpen ? '16rem' : '5rem',
             transition: 'margin-left 0.1s'
         } : {}">
@@ -112,7 +116,10 @@ document.dispatchEvent(new CustomEvent('sidebar-toggled', {
         // Mettre à jour l'année dans le footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
-
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+     @stack('scripts')
 </body>
 
 </html>

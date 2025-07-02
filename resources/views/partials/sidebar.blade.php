@@ -93,7 +93,7 @@
                 </button>
                 <div x-show="open && appState.sidebarOpen" class="pl-8 py-1 space-y-1">
                     <div class="text-xs text-gray-400 px-2 py-1 sidebar-label">Pointages & Tâches</div>
-                    <a href="#" class="block p-2 text-sm rounded hover:bg-gray-600">Pointages</a>
+                    <a href="{{route('pointages.lists')}}" class="block p-2 text-sm rounded hover:bg-gray-600">Pointages</a>
                     <a href="{{ route('tasks.lists') }}"
                         class="block p-2 text-sm rounded hover:bg-gray-600 {{ request()->routeIs('tasks.lists') ? 'bg-gray-600' : '' }}">Tâches</a>
                 </div>
