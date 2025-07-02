@@ -1,12 +1,14 @@
 @extends('layouts.master')
+@section('title', 'Tâches')
+@section('page-title', 'Tâches')
 
 @section('content')
 <div class="max-w-2xl mx-auto p-4 sm:p-6 md:p-8">
     @php
         use Carbon\Carbon;
         $now = Carbon::now();
-        $debut = Carbon::createFromTime(12, 32, 0); // 16h30
-        $fin = Carbon::createFromTime(20, 0, 0);    // 20h00
+        $debut = Carbon::createFromTime(12, 32, 0);
+        $fin = Carbon::createFromTime(20, 0, 0);
     @endphp
 
     @if ($now->between($debut, $fin))
@@ -24,30 +26,30 @@
             </div>
         @endif
 
-        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-100">
-            <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Saisir une tâche</h2>
+        <div class="bg-primary rounded-xl shadow-lg p-6 md:p-8 border border-gray-100">
+            <h2 class="text-2xl font-bold text-center text-dark mb-6">Saisir une tâche</h2>
 
             <form action="{{ route('taches.post') }}" method="POST">
                 @csrf
 
                 <div class="mb-6">
-                    <label for="description" class="block text-gray-700 font-medium mb-2">
+                    <label for="description" class="block text-dark font-medium mb-2">
                         Description de la tâche
                     </label>
                     <textarea
                         id="description"
                         name="description"
                         rows="5"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-dark focus:border-dark transition resize-none"
                         placeholder="Décrivez la tâche effectuée..."
                         required
                     ></textarea>
                 </div>
 
                 <div class="text-center mt-8">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center mx-auto">
+                    <button type="submit" class="bg-dark hover:bg-[#103c4a] text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center mx-auto">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linecap="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
                         Enregistrer la tâche
                     </button>
