@@ -5,6 +5,23 @@
 
 @section('content')
 
+<form method="GET" action="{{ route('employe.historique', $user->id) }}" class="mb-8 flex flex-col md:flex-row gap-4 items-start md:items-end">
+    <div>
+        <label for="date" class="block text-sm font-medium text-gray-700">Filtrer par date</label>
+        <input type="date" name="date" id="date" value="{{ request('date') }}" class="border rounded px-3 py-1 w-full">
+    </div>
+
+    <div>
+        <label for="month" class="block text-sm font-medium text-gray-700">Filtrer par mois</label>
+        <input type="month" name="month" id="month" value="{{ request('month') }}" class="border rounded px-3 py-1 w-full">
+    </div>
+
+    <div>
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Filtrer</button>
+    </div>
+</form>
+
+
 <div class="max-w-6xl mx-auto px-4 py-8">
     <h1 class="text-xl md:text-xl font-bold text-gray-800 mb-8">
         Détails de l'employé : <span class="text-dark">{{ $user->name ?? '' }} {{ $user->first_name ?? '' }}</span>

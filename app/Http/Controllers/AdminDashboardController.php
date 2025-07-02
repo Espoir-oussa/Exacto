@@ -50,17 +50,25 @@ class AdminDashboardController extends Controller
         return redirect()->back()->with('success', 'Compte supprimé avec succès.');
     }
 
-    public function showEmployeHistorique($userId)
+    public function showEmployeHistorique(Request $request, User $user)
     {
-        $user = User::findOrFail($userId);
-
-        // On récupère les tâches de cet employé
+        // Tâches paginées (exemple sans filtre ici)
         $taches = $user->taches()->latest()->paginate(10);
 
-        // Pour les pointages, il faudra aussi faire une relation dans User si tu as ce modèle
-        // $pointages = $user->pointages()->latest()->paginate(10);
-        // Pour l'instant, on laisse vide ou à adapter selon ta table pointages
-        $pointages = collect();
+        // Pointages avec filtre par date ou mois
+        $pointagesQuery = $user->pointages();
+
+        if ($request->filled('date')) {
+            // Filtre sur une date précise
+            $pointagesQuery->whereDate('date_pointage', $request->input('date'));
+        } elseif ($request->filled('month')) {
+            // Filtre par mois (format attendu : YYYY-MM, ex: 2025-07)
+            $month = $request->input('month');
+            $pointagesQuery->whereYear('date_pointage', substr($month, 0, 4))
+                ->whereMonth('date_pointage', substr($month, 5, 2));
+        }
+
+        $pointages = $pointagesQuery->latest()->paginate(10);
 
         return view('admin.employe_historique', compact('user', 'taches', 'pointages'));
     }
