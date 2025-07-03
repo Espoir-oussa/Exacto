@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMUXT - Plateforme de Gestion des Employés et des Tâches</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="icon" href="{{ asset('images/Logo IMUXT.png') }}" type="image/png" />
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
