@@ -1,10 +1,16 @@
 <!-- Header -->
-<header class="sticky top-0 z-50 bg-[#164f63] text-white shadow-md px-4 py-4 flex justify-between items-center">
+<header
+    class="sticky top-0 z-50 bg-[#164f63] text-white shadow-md px-4 py-4 flex justify-between items-center">
+
 
     <!-- Bouton burger mobile -->
     <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-white hover:text-blue-200 transition-colors">
         <i class="fas fa-bars text-xl"></i>
     </button>
+
+    <div class="absolute inset-0 flex justify-center items-center pointer-events-none md:hidden">
+        <img src="{{ asset('images/Logo IMUXT (Blanc).png') }}" alt="Logo IMUXT" class="h-4 w-auto">
+    </div>
 
     <!-- Espace vide ou autres éléments à droite -->
     <!-- Zone utilisateur + notifications -->
