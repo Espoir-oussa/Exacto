@@ -16,30 +16,53 @@ class EmployeDashboardController extends Controller
     }
 
     public function ShowTaskForm()
-    {
-        return view("employe.form_task");
+{
+    $userId = Auth::id();
+    $today = now()->toDateString();
+
+    // Vérifie si une tâche existe aujourd'hui pour cet utilisateur
+    $taskExistsToday = Tache::where('user_id', $userId)
+        ->whereDate('created_at', $today)
+        ->exists();
+
+    return view("employe.form_task", compact('taskExistsToday'));
+}
+
+
+ public function HandleTask(Request $request)
+{
+    $request->validate(
+        [
+            'description' => 'required|string|min:10',
+        ],
+        [
+            'description.required' => 'La description est obligatoire.',
+            'description.min' => 'La description doit contenir au moins 10 caractères.',
+        ]
+    );
+
+    $userId = Auth::id();
+    $today = now()->toDateString();
+
+    // Vérifie si une tâche existe déjà aujourd'hui pour cet utilisateur
+    $taskExists = Tache::where('user_id', $userId)
+        ->whereDate('created_at', $today)
+        ->exists();
+
+    if ($taskExists) {
+        return redirect()->back()->withErrors(['description' => 'Vous avez déjà soumis une tâche aujourd\'hui.']);
     }
 
-    public function HandleTask(Request $request)
-    {
-        $request->validate(
-            [
-                'description' => 'required|string|min:10',
-            ],
-            [
-                'description.required' => 'La description est obligatoire.',
-                'description.min' => 'La description doit contenir au moins 10 caractères.',
-            ]
-        );
+    Tache::create([
+        'description' => $request->description,
+        'user_id' => $userId,
+        'libelle_tache' => 'Tâche du ' . now()->format('d/m/Y'),
+    ]);
 
-        Tache::create([
-            'description' => $request->description,
-            'user_id' => Auth::id(),
-            'libelle_tache' => 'Tâche du ' . now()->format('d/m/Y'), // Ajout d'un libellé automatique
-        ]);
+    return redirect()->back()->with("success", "Tâche enregistrée avec succès");
+}
 
-        return redirect()->back()->with("success", "Tâche enregistrée avec succès");
-    }
+
 
     public function ShowAllTask()
     {

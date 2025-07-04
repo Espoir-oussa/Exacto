@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section("content")
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+{{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Carte Pointage -->
         <a href="{{ route('pointages.index')}}" class="block">
@@ -37,5 +37,41 @@
             </div>
         </a>
     </div>
-</div>
+</div> --}}
+
+{{-- <h2>Taux de présence cette semaine</h2>
+    <canvas id="presenceChart"></canvas>
+
+    <h2>Répartition de mes tâches</h2>
+    <canvas id="tachesChart"></canvas>
+
+    <script>
+        const presenceCtx = document.getElementById('presenceChart');
+        const tachesCtx = document.getElementById('tachesChart');
+
+        // Graphique de présence
+        new Chart(presenceCtx, {
+            type: 'bar',
+            data: {
+                labels: @json($jours),
+                datasets: [{
+                    label: 'Présence (1 = présent, 0 = absent)',
+                    data: @json($presences),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                }]
+            }
+        });
+
+        // Graphique des tâches
+        new Chart(tachesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['À faire', 'En cours', 'Terminées'],
+                datasets: [{
+                    data: [{{ $tachesAFaire }}, {{ $tachesEnCours }}, {{ $tachesTerminees }}],
+                    backgroundColor: ['#f39c12', '#3498db', '#2ecc71']
+                }]
+            }
+        });
+    </script> --}}
 @endsection

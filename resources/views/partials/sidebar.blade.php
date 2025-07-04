@@ -90,11 +90,11 @@
                             :class="open ? 'rotate-180' : ''"></i>
                     </button>
                     <div x-show="open" class="pl-8 py-1 space-y-1">
-                        <div class="text-xs text-gray-400 px-2 py-1 sidebar-label">Pointages & Tâches</div>
+                        <div class=" text-gray-400 px-2 py-1 sidebar-label">Pointages & Tâches</div>
                         <a href="{{route('pointages.lists')}}"
-                            class="block p-2 text-sm rounded hover:bg-gray-600">Pointages</a>
+                            class="block p-2rounded hover:bg-gray-600">Pointages</a>
                         <a href="{{ route('tasks.lists') }}"
-                            class="block p-2 text-sm rounded hover:bg-gray-600 {{ request()->routeIs('tasks.lists') ? 'bg-gray-600' : '' }}">Tâches</a>
+                            class="block p-2 rounded hover:bg-gray-600 {{ request()->routeIs('tasks.lists') ? 'bg-gray-600' : '' }}">Tâches</a>
                     </div>
                 </div>
             </div>
