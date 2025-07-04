@@ -7,7 +7,7 @@
     @php
         use Carbon\Carbon;
         $now = Carbon::now();
-        $debut = Carbon::createFromTime(12, 32, 0);
+        $debut = Carbon::createFromTime(8, 32, 0);
         $fin = Carbon::createFromTime(20, 0, 0);
     @endphp
 

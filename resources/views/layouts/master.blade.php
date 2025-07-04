@@ -9,6 +9,7 @@
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
 </head>
 
@@ -31,7 +32,7 @@
             </h1>
 
             <!-- Contenu principal -->
-            <main class="flex-1 overflow-auto px-8 pt-8">
+            <main class="flex-1 overflow-auto px-8 pt-5">
                 <!-- Ton contenu ici -->
                 @yield('content')
             </main>

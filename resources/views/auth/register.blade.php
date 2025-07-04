@@ -5,7 +5,7 @@
 @section('page-title', 'Créer comptes')
 
 @section('content')
-    <style>
+    {{-- <style>
         .glass {
             background: rgba(22, 79, 99, 0.90);
             backdrop-filter: blur(16px);
@@ -23,9 +23,41 @@
                 opacity: 1;
             }
         }
-    </style>
 
-    <div class="min-h-screen flex items-center justify-center bg-white-500">
+        .animate-fade-in-out {
+            animation: fade-in-out 8s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-in-out {
+            0% {
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style> --}}
+
+
+    <div class="mx-auto my-auto flex flex-col items-center justify-center ">
+        <div class="px-4 sm:px-6 lg:px-8 animate-fade-in-out">
+            @if (session('status'))
+                <div class="mb-4 text-white bg-green-400 text-center p-2 rounded">
+                    {{ session('status') }}
+                </div>
+            @endif
+        </div>
+
         <div class="glass w-full max-w-md p-8 rounded-2xl shadow-2xl text-white animate-fade-in">
 
             <!-- Logo -->
@@ -36,13 +68,9 @@
             </div>
 
             <!-- Titre -->
-            <h2 class="text-xl font-bold text-center mb-6 tracking-wide text-white">Créer un compte employé</h2>
+            <h2 class="font-semibold text-center mb-6 tracking-wide text-white">Créer un compte employé</h2>
 
-            @if (session('status'))
-                <div class="mb-4 text-sm text-green-400">
-                    {{ session('status') }}
-                </div>
-            @endif
+
 
             <!-- Formulaire -->
             <form method="POST" action="{{ route('admin.register.store') }}" class="space-y-6">
@@ -50,7 +78,7 @@
 
                 <!-- Prénom -->
                 <div>
-                    <label for="first_name" class="block text-sm font-medium text-white">Prénom</label>
+                    <label for="first_name" class="block font-medium text-white">Prénom</label>
                     <input id="first_name" type="text" name="first_name" value="{{ old('first_name') }}" required
                         class="mt-1 w-full px-4 py-2 rounded-lg bg-black bg-opacity-40 border border-gray-600 text-white placeholder-white focus:outline-none focus:ring-2 ">
                     @error('first_name')
@@ -60,9 +88,9 @@
 
                 <!-- Nom -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-white">Nom</label>
+                    <label for="name" class="block font-medium text-white">Nom</label>
                     <input id="name" type="text" name="name" value="{{ old('name') }}" required
-                        class="mt-1 w-full px-4 py-2 rounded-lg bg-black bg-opacity-40 border border-gray-600 text-white placeholder-white focus:outline-none focus:ring-2 ">
+                        class="mt-1 w-full px-4 py-2 rounded-lg bg-black bg-opacity-40 border border-gray-600 text-white placeholder-white focus:outline-none focus:ring-2 text-sm">
                     @error('last_name')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
@@ -71,7 +99,7 @@
 
                 <!-- Email -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-white">Adresse email</label>
+                    <label for="email" class="block font-medium text-white">Adresse email</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required
                         class="mt-1 w-full px-4 py-2 rounded-lg bg-black bg-opacity-40 border border-gray-600 text-white placeholder-white focus:outline-none focus:ring-2 ">
                     @error('email')
