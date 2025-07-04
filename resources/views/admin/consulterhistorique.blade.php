@@ -34,7 +34,7 @@
                                     class="inline-block px-3 py-1 rounded-full bg-red-100 text-red-700 font-semibold tracking-wide">Désactivé</span>
                             @endif
                         </td>
-                        <td class="py-3 px-6 text-center space-x-2 md:space-y-3">
+                        <td class="py-3 px-6 text-center space-x-2 sm:pt-4 sm:justify-center sm:flex sm:items-center">
                             <a href="{{ route('employe.historique', $user->id) }}"
                                 class="inline-block text-dark px-4 py-1 font-semibold">
                                 <i class="fas fa-fw fa-eye w-5"></i>
