@@ -142,7 +142,7 @@
     <script>
     function openDeleteModal(userId) {
         const form = document.getElementById('deleteForm');
-        form.action = "{{ route('admin.user.destroy', '__id__') }}".replace('__id__', userId);
+        form.action = "{{ route('admin.user.destroy',  $user->id) }}";
         document.getElementById('deleteModal').classList.remove('hidden');
     }
 
