@@ -45,7 +45,7 @@ class EmployeDashboardController extends Controller
     {
         // Récupère seulement les tâches de l'utilisateur connecté
         $taches = Tache::where('user_id', Auth::id())
-            ->latest()
+            ->orderBy('created_at', 'asc')
             ->paginate(10); // Pagination
 
         return view("employe.tasklist", compact("taches"));

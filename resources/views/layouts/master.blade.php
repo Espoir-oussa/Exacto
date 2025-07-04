@@ -27,9 +27,9 @@
 
             @include('partials.header')
 
-            <h1 class="text-xl md:text-xl uppercase font-black text-gray-800 p-4 bg-gray-200 text-center md:text-left md:pl-10">
+            <h3 class="uppercase font-black text-gray-800 p-4 bg-gray-200 text-center md:text-left md:pl-10">
                 @yield('page-title', '')
-            </h1>
+            </h3>
 
             <!-- Contenu principal -->
             <main class="flex-1 overflow-auto px-8 pt-5">
@@ -39,6 +39,9 @@
         </div>
 
     </div>
+
+    @stack('scripts')
+
 
 </body>
 
